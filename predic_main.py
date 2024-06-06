@@ -105,7 +105,7 @@ class IncomePredictionModel:
         """
         print(f'{get_timestamp()} 开始二值化标签...')
         lb = LabelBinarizer()
-        self.vectorized_label = lb.fit_transform(self.label)
+        self.vectorized_label = lb.fit_transform(self.label).ravel()
 
     def train_and_evaluate_models(self):
         X_train, X_test, y_train, y_test = train_test_split(self.vectorized_data, self.vectorized_label, test_size=0.2)
