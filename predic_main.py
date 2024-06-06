@@ -117,24 +117,18 @@ class IncomePredictionModel:
 
         return model_names, accuracies
 
-def plot_accuracy_comparison(model_names, accuracies_jieba, accuracies_no_jieba):
+
+def plot_accuracy_comparison(model_names, accuracies):
     fig, ax = plt.subplots(figsize=(10, 6))
     x = np.arange(len(model_names))
     width = 0.35
 
     # 绘制第一组柱状图
-    jieba_bars = ax.bar(x - width / 2, accuracies_jieba, width, label='with jieba')
+    bars = ax.bar(x - width / 2, accuracies, width, label='accuracies')
 
     # 为第一组柱状图添加数据标签
-    for i, v in enumerate(accuracies_jieba):
+    for i, v in enumerate(accuracies):
         ax.text(x[i] - width / 2, v, f"{v:.2%}", ha='center', va='bottom')
-
-    # 绘制第二组柱状图
-    no_jieba_bars = ax.bar(x + width / 2, accuracies_no_jieba, width, label='without jieba')
-
-    # 为第二组柱状图添加数据标签
-    for i, v in enumerate(accuracies_no_jieba):
-        ax.text(x[i] + width / 2, v, f"{v:.2%}", ha='center', va='bottom')
 
     ax.set_xticks(x)
     ax.set_xticklabels(model_names)
@@ -158,4 +152,4 @@ if __name__ == "__main__":
     model.binarize_labels()
     model_names, accuracies = model.train_and_evaluate_models()
 
-    plot_accuracy_comparison(model_names, accuracies, accuracies)
+    plot_accuracy_comparison(model_names, accuracies)
